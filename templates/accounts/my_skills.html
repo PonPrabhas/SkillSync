@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>My Skills - SkillSync</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        background:
+            radial-gradient(circle at top left, #eef4ff 0%, transparent 35%),
+            radial-gradient(circle at bottom right, #f1eaff 0%, transparent 35%),
+            #ffffff;
+        color: #172033;
+    }
+
+    .skills-wrapper {
+        max-width: 1050px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+
+    .skills-card {
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid #e5e9f2;
+        border-radius: 24px;
+        padding: 38px;
+        box-shadow: 0 20px 50px rgba(40, 60, 100, 0.10);
+    }
+
+    /* HEADER */
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .page-header h2 {
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        background: linear-gradient(
+            135deg,
+            #1877f2,
+            #6f42c1,
+            #d62976
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+        color: #7b8498;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    /* ALERT */
+
+    .alert-success {
+        border: none;
+        border-radius: 12px;
+        background: #eaf8f0;
+        color: #16794c;
+        font-weight: 500;
+        margin-bottom: 25px;
+    }
+
+    /* SECTIONS */
+
+    .section-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #20283a;
+        margin-bottom: 18px;
+    }
+
+    .add-section {
+        background: linear-gradient(
+            135deg,
+            #f6f9ff,
+            #fbf8ff
+        );
+        border: 1px solid #e4e9f5;
+        border-radius: 18px;
+        padding: 25px;
+    }
+
+    /* FORM */
+
+    form p {
+        margin-bottom: 18px;
+    }
+
+    form label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        color: #30394d;
+        margin-bottom: 7px;
+    }
+
+    form input,
+    form select,
+    form textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #dce3ef;
+        border-radius: 11px;
+        background: #ffffff;
+        color: #20283a;
+        outline: none;
+        transition: 0.25s ease;
+    }
+
+    form input:focus,
+    form select:focus,
+    form textarea:focus {
+        border-color: #4d7cff;
+        box-shadow: 0 0 0 4px rgba(77, 124, 255, 0.12);
+    }
+
+    .btn-gradient {
+        border: none;
+        border-radius: 11px;
+        padding: 11px 22px;
+        color: white;
+        font-weight: 600;
+        background: linear-gradient(
+            135deg,
+            #1877f2,
+            #6f42c1
+        );
+        box-shadow: 0 8px 20px rgba(70, 90, 200, 0.20);
+        transition: 0.25s ease;
+    }
+
+    .btn-gradient:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(70, 90, 200, 0.28);
+    }
+
+    /* DIVIDER */
+
+    .custom-divider {
+        border: 0;
+        border-top: 1px solid #e8ebf2;
+        margin: 35px 0;
+    }
+
+    /* SKILLS TABLE */
+
+    .skills-table-wrapper {
+        border: 1px solid #e3e8f1;
+        border-radius: 16px;
+        overflow: hidden;
+        background: white;
+    }
+
+    .skills-table {
+        margin: 0;
+        border: none;
+    }
+
+    .skills-table thead th {
+        background: linear-gradient(
+            135deg,
+            #1877f2,
+            #6f42c1
+        );
+        color: white;
+        border: none;
+        padding: 15px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+    }
+
+    .skills-table tbody td {
+        padding: 15px 18px;
+        border-color: #edf0f5;
+        color: #30394d;
+        font-size: 14px;
+        vertical-align: middle;
+        background: white;
+    }
+
+    .skills-table tbody tr {
+        transition: 0.2s ease;
+    }
+
+    .skills-table tbody tr:hover td {
+        background: #f7f9ff;
+    }
+
+    .skills-table tbody td:first-child {
+        font-weight: 700;
+        color: #1d4ed8;
+    }
+
+    /* PROFICIENCY */
+
+    .proficiency-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: #eef3ff;
+        color: #4169d8;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    /* EMPTY STATE */
+
+    .empty-state {
+        padding: 30px;
+        text-align: center;
+        border: 1px dashed #d6ddea;
+        border-radius: 15px;
+        background: #fafbfe;
+        color: #7b8498;
+    }
+
+    /* BACK BUTTON */
+
+    .back-section {
+        margin-top: 28px;
+    }
+
+    .back-btn {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1px solid #d7deeb;
+        color: #465268;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.25s ease;
+    }
+
+    .back-btn:hover {
+        color: #1877f2;
+        border-color: #1877f2;
+        background: #f4f7ff;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 768px) {
+
+        .skills-wrapper {
+            margin: 25px auto;
+            padding: 0 12px;
+        }
+
+        .skills-card {
+            padding: 22px;
+            border-radius: 18px;
+        }
+
+        .page-header h2 {
+            font-size: 25px;
+        }
+
+        .add-section {
+            padding: 20px;
+        }
+
+        .skills-table thead th,
+        .skills-table tbody td {
+            padding: 12px;
+            white-space: nowrap;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="skills-wrapper">
+
+<div class="skills-card">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h2>
+            My Skills
+        </h2>
+
+        <p>
+            Manage and showcase your technical skills
+        </p>
+
+    </div>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- ADD SKILL -->
+
+    <div class="add-section">
+
+        <h4 class="section-title">
+            Add a Skill
+        </h4>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="btn btn-gradient">
+
+                Add Skill
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <hr class="custom-divider">
+
+
+    <!-- EXISTING SKILLS -->
+
+    <h4 class="section-title">
+        My Current Skills
+    </h4>
+
+    {% if skills %}
+
+        <div class="table-responsive skills-table-wrapper">
+
+            <table class="table skills-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Skill</th>
+                        <th>Category</th>
+                        <th>Proficiency</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for item in skills %}
+
+                    <tr>
+
+                        <td>
+                            {{ item.skill.skill_name }}
+                        </td>
+
+                        <td>
+                            {{ item.skill.category }}
+                        </td>
+
+                        <td>
+
+                            {% if item.proficiency == 1 %}
+                                Beginner
+                            {% elif item.proficiency == 2 %}
+                                Intermediate
+                            {% elif item.proficiency == 3 %}
+                                Advanced
+                            {% elif item.proficiency == 4 %}
+                                Expert
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <p class="mb-0">
+                You have not added any skills yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="back-section">
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

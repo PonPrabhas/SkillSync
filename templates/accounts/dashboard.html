@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard - SkillSync</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+
+            background:
+                radial-gradient(circle at 10% 10%, rgba(0, 149, 255, 0.35), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(88, 86, 214, 0.35), transparent 30%),
+                radial-gradient(circle at 50% 100%, rgba(0, 200, 255, 0.18), transparent 35%),
+                linear-gradient(135deg, #050816, #0b1026 50%, #101a3d);
+
+            color: white;
+            overflow-x: hidden;
+        }
+
+
+        /* Main Wrapper */
+
+        .dashboard-wrapper {
+            max-width: 1250px;
+            margin: auto;
+            padding: 45px 25px;
+        }
+
+
+        /* Header */
+
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header p {
+            color: #aab6d3;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .brand-gradient {
+            background: linear-gradient(
+                90deg,
+                #00c6ff,
+                #0072ff,
+                #7c4dff,
+                #d946ef
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        /* Main Layout */
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+
+        /* Glass Card */
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+            border-radius: 24px;
+        }
+
+
+        /* Profile */
+
+        .profile-panel {
+            padding: 28px;
+            position: sticky;
+            top: 25px;
+        }
+
+        .profile-avatar {
+            width: 85px;
+            height: 85px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            font-size: 34px;
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00c6ff,
+                    #0072ff,
+                    #7c4dff
+                );
+
+            box-shadow:
+                0 10px 35px rgba(0, 114, 255, 0.45);
+
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .profile-panel h2 {
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: #8fa5d5;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .profile-info {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 18px;
+        }
+
+        .info-label {
+            color: #8494bb;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            color: #f4f7ff;
+            font-size: 14px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+
+        /* Edit Profile */
+
+        .edit-profile-btn {
+            width: 100%;
+            margin-top: 8px;
+
+            border: none;
+            border-radius: 12px;
+
+            padding: 11px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                #0072ff,
+                #5b4dff
+            );
+
+            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.25);
+
+            transition: 0.3s ease;
+        }
+
+        .edit-profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.4);
+            color: white;
+        }
+
+
+        /* Right Section */
+
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+
+        /* Feature Cards */
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 205px;
+
+            padding: 27px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            transition: all 0.35s ease;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+
+            width: 140px;
+            height: 140px;
+
+            border-radius: 50%;
+
+            right: -60px;
+            top: -60px;
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,255,255,0.25);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,0.4);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            font-size: 25px;
+
+            margin-bottom: 20px;
+
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #aab6d3;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+
+        /* Card gradients */
+
+        .skills-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0, 114, 255, 0.25),
+                    rgba(0, 198, 255, 0.08)
+                ),
+                rgba(255,255,255,0.05);
+        }
+
+        .projects-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124, 77, 255, 0.25),
+                    rgba(0, 114, 255, 0.08)
+                ),
+                rgba(255,255,255,0.05);
+        }
+
+        .certificates-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0, 198, 255, 0.2),
+                    rgba(0, 150, 136, 0.08)
+                ),
+                rgba(255,255,255,0.05);
+        }
+
+        .career-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(217, 70, 239, 0.22),
+                    rgba(124, 77, 255, 0.08)
+                ),
+                rgba(255,255,255,0.05);
+        }
+
+
+        /* Feature Buttons */
+
+        .feature-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: fit-content;
+
+            padding: 9px 17px;
+
+            border-radius: 10px;
+
+            color: white;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            background: rgba(255,255,255,0.1);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            transition: 0.3s ease;
+        }
+
+        .feature-btn:hover {
+            color: white;
+
+            background: rgba(255,255,255,0.2);
+
+            transform: translateX(4px);
+        }
+
+
+        /* Career Prediction */
+
+        .career-card {
+            grid-column: span 2;
+            min-height: 190px;
+        }
+
+        .career-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .career-card .feature-btn {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0072ff,
+                    #7c4dff
+                );
+
+            border: none;
+
+            padding: 12px 22px;
+
+            box-shadow:
+                0 10px 30px rgba(76, 77, 255, 0.3);
+        }
+
+        .career-card .feature-btn:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 15px 35px rgba(76, 77, 255, 0.45);
+        }
+
+
+        /* Logout */
+
+        .logout-area {
+            margin-top: 25px;
+            text-align: right;
+        }
+
+        .logout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border-radius: 11px;
+
+            color: #ff8f9c;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            background: rgba(220, 53, 69, 0.08);
+
+            border: 1px solid rgba(220, 53, 69, 0.2);
+
+            transition: 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            background: rgba(220, 53, 69, 0.75);
+        }
+
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-panel {
+                position: relative;
+                top: 0;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .dashboard-wrapper {
+                padding: 25px 15px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 26px;
+            }
+
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+
+            .career-card {
+                grid-column: span 1;
+            }
+
+            .career-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .feature-card {
+                min-height: 190px;
+            }
+
+            .logout-area {
+                text-align: center;
+            }
+            .delete_acc {
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="dashboard-wrapper">
+
+
+    <!-- HEADER -->
+
+    <div class="dashboard-header">
+
+        <h1>
+            Welcome,
+            <span class="brand-gradient">
+                {{ student.full_name }}
+            </span>
+            👋
+        </h1>
+
+        <p>
+            Welcome back to your SkillSync dashboard.
+            Manage your profile, skills and career journey.
+        </p>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard-layout">
+
+
+        <!-- LEFT PROFILE PANEL -->
+
+        <div class="glass-card profile-panel">
+
+            <div class="profile-avatar">
+                {{ student.full_name|first|upper }}
+            </div>
+
+            <h2>
+                {{ student.full_name }}
+            </h2>
+
+            <div class="profile-role">
+                SkillSync Student
+            </div>
+
+
+            <div class="profile-info">
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Email
+                    </div>
+
+                    <div class="info-value">
+                        {{ student.email }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        College
+                    </div>
+
+                    <div class="info-value">
+                        {{ student.college|default:"Not added yet" }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Course
+                    </div>
+
+                    <div class="info-value">
+                        {{ student.course|default:"Not added yet" }}
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE COMPLETION -->
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Profile Completion
+                    </div>
+
+                    <div class="info-value">
+                        {{ profile_completion }}%
+                    </div>
+
+                </div>
+
+
+                <!-- SKILL COUNT -->
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Skills Added
+                    </div>
+
+                    <div class="info-value">
+                        {{ skill_count }}
+                    </div>
+
+                </div>
+
+
+                <!-- PROJECT COUNT -->
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Projects
+                    </div>
+
+                    <div class="info-value">
+                        {{ project_count }}
+                    </div>
+
+                </div>
+
+
+                <!-- CERTIFICATE COUNT -->
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Certificates
+                    </div>
+
+                    <div class="info-value">
+                        {{ certificate_count }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="btn edit-profile-btn"
+            >
+                ✏️ Edit Profile
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT FEATURE CARDS -->
+
+        <div>
+
+            <div class="features-section">
+
+
+                <!-- SKILLS -->
+
+                <div class="glass-card feature-card skills-card">
+
+                    <div>
+
+                        <div class="feature-icon">
+                            🧠
+                        </div>
+
+                        <h3>
+                            My Skills
+                        </h3>
+
+                        <p>
+                            Add and manage your technical and professional skills.
+                            You currently have
+                            <strong>{{ skill_count }}</strong>
+                            skill{{ skill_count|pluralize }}.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="{% url 'my_skills' %}"
+                        class="feature-btn"
+                    >
+                        Explore Skills →
+                    </a>
+
+                </div>
+
+
+                <!-- PROJECTS -->
+
+                <div class="glass-card feature-card projects-card">
+
+                    <div>
+
+                        <div class="feature-icon">
+                            🚀
+                        </div>
+
+                        <h3>
+                            My Projects
+                        </h3>
+
+                        <p>
+                            Showcase the projects and work you have completed.
+                            You currently have
+                            <strong>{{ project_count }}</strong>
+                            project{{ project_count|pluralize }}.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="{% url 'projects' %}"
+                        class="feature-btn"
+                    >
+                        View Projects →
+                    </a>
+
+                </div>
+
+
+                <!-- CERTIFICATES -->
+
+                <div class="glass-card feature-card certificates-card">
+
+                    <div>
+
+                        <div class="feature-icon">
+                            🏆
+                        </div>
+
+                        <h3>
+                            My Certificates
+                        </h3>
+
+                        <p>
+                            Keep track of your certifications and achievements.
+                            You currently have
+                            <strong>{{ certificate_count }}</strong>
+                            certificate{{ certificate_count|pluralize }}.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="{% url 'certificates' %}"
+                        class="feature-btn"
+                    >
+                        View Certificates →
+                    </a>
+
+                </div>
+
+
+                <!-- CAREER PREDICTION -->
+
+                <div class="glass-card feature-card career-card">
+
+                    <div class="career-content">
+
+                        <div>
+
+                            <div class="feature-icon">
+                                🔮
+                            </div>
+
+                            <h3>
+                                Predict My Career
+                            </h3>
+
+                            <p>
+                                Discover potential career paths based on your
+                                skills, projects and profile.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'career_prediction' %}"
+                            class="feature-btn"
+                        >
+                            Predict Career →
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CAREER EXPLORER -->
+
+                <div class="glass-card feature-card career-card">
+
+                    <div class="career-content">
+
+                        <div>
+
+                            <div class="feature-icon">
+                                🔍
+                            </div>
+
+                            <h3>
+                                Career Explorer
+                            </h3>
+
+                            <p>
+                                Explore different career paths and compare
+                                their required skills with your current skills.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'career_explorer' %}"
+                            class="feature-btn"
+                        >
+                            Explore Careers →
+                        </a>
+
+                    </div>
+
+                </div>
+                <!-- OPPORTUNITIES -->
+
+<div class="glass-card feature-card opportunities-card">
+
+    <div>
+
+        <div class="feature-icon">
+            💼
+        </div>
+
+        <h3>
+            Opportunities
+        </h3>
+
+        <p>
+            Explore available jobs, internships and other opportunities
+            that match your skills and career interests.
+        </p>
+
+    </div>
+
+    <a
+        href="{% url 'opportunity_list' %}"
+        class="feature-btn"
+    >
+        View Opportunities →
+    </a>
+
+</div>
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <div class="logout-area">
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="logout-btn"
+                >
+                    🚪 Logout
+                </a>
+
+            </div>
+              <div class="delete_acc">
+
+               <a href="{% url 'delete_account' %}" class="feature-btn">
+   🗑️ Delete Account
+</a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

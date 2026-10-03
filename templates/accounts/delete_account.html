@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Account - SkillSync</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #080d18;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .delete-card {
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            background: #111827;
+            border: 1px solid #374151;
+            border-radius: 18px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #ff5c5c;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .warning {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #2a1515;
+            color: #fca5a5;
+        }
+
+        button,
+        .cancel-btn {
+            display: inline-block;
+            padding: 12px 22px;
+            margin: 8px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-btn {
+            background: #374151;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="delete-card">
+
+    <h2>Delete Account?</h2>
+
+    <p>
+        Are you sure you want to permanently delete your SkillSync account?
+    </p>
+
+    <div class="warning">
+        This action cannot be undone.
+        Your account and associated data may also be deleted.
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="delete-btn"
+        >
+            Yes, Delete My Account
+        </button>
+    </form>
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="cancel-btn"
+    >
+        Cancel
+    </a>
+
+</div>
+
+</body>
+</html>
